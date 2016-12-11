@@ -1,0 +1,12 @@
+#modal-image {
+  width: 100%;
+  height: 80%;
+}
+
+.js-image:hover {
+  cursor: pointer;
+}
+
+.thumbnail-container {
+  margin: 7em 5px;
+}

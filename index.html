@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>UIX Gems</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
+<link rel="stylesheet" href="main.css">
+
+</head>
+<body>
+  <header>
+    <div class="ui segment fixed">
+      <h1>UIX Screen Mockups</h1>
+    </div>
+  </header>
+
+  <!-- Thumbnail images go here -->
+  <div class="ui header">Students</div>
+  <div id="student"></div>
+
+  <div class="ui header">Parents</div>
+  <div id="parent"></div>
+
+<div class="ui basic modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Full Size
+  </div>
+  <div class="image content">
+    <img id="modal-image" src=""/>
+  </div>
+  <div class="actions">
+    <div class="two fluid ui inverted buttons">
+      <div class="ui cancel red basic inverted button">
+        <i class="remove icon"></i>
+        No
+      </div>
+      <div class="ui ok green basic inverted button">
+        <i class="checkmark icon"></i>
+        Yes
+      </div>
+    </div>
+  </div>
+</div>
+
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
+
+<script type='text/javascript'>
+  $(document).ready(function () {
+    $('.js-image').click(function () {
+      var imageName = $(this).attr('data-imageName');
+      var src = "assets/images/" + imageName;
+      $('#modal-image').attr('src', src);
+      $('.ui.basic.modal').modal('show');
+    })
+  });
+</script>
+
+<script src="https://fb.me/react-15.0.0.js"></script>
+<script src="https://fb.me/react-dom-15.0.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+<script type="text/babel">
+
+  var ImagePreview = React.createClass({
+    render: function() {
+      return (
+        <div className="thumbnail-container">
+          <ImageThumbnailRepeater data={this.props.images} />
+        </div>
+      );
+    }
+  });
+
+  var ImageThumbnailRepeater = React.createClass({
+    render: function() {
+      var thumbnails = this.props.data.map(function(imageName) {
+        return (
+          <div className="column">
+            <div className="ui segment" data-inverted="" data-tooltip="Click to see full size image..." data-position="bottom center">
+              <ImageThumbnail imageName={imageName} />
+            </div>
+          </div>
+        )
+      });
+
+
+      return (
+        <div className="ui three column grid">{thumbnails}</div>
+      )
+    }
+  });
+
+  var ImageThumbnail = React.createClass({
+    render: function() {
+      var imageUrl = "assets/images/" + this.props.imageName;
+      return (
+        <img src={imageUrl} width="100%" className="js-image" data-imageName={this.props.imageName}/>
+      )
+    }
+  });
+
+  var parentImages = ["image1.jpg", "image3.jpg", "image5.jpg", "image7.jpg"];
+  var studentImages = ["image2.jpg", "image4.jpg", "image6.jpg", "image8.jpg"]
+
+  ReactDOM.render(
+    <ImagePreview images={studentImages}/>,
+    document.getElementById('student')
+  );
+
+  ReactDOM.render(
+    <ImagePreview images={parentImages}/>,
+    document.getElementById('parent')
+  );
+
+</script>
+</body>
+</html>
